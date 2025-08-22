@@ -1,6 +1,8 @@
 from django.contrib import admin
-from .models import User
+from .models import User,Following
 # Register your models here.
+
+admin.site.register(Following)
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):

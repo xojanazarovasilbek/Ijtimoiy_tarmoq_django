@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
+from django.template.context_processors import request
 from django.views import View
 from django.contrib.auth import logout
 from .forms import MyUserCreationForm, MyUserChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import User,Following
+from django.shortcuts import render,get_object_or_404
 
 class UserLogoutView(View):
     def get(self, request):
@@ -39,3 +42,21 @@ class UserUpdateView(LoginRequiredMixin, View):
             return render(request, "registration/user_update.html", {"form": form})
 
 
+class ProfileView(LoginRequiredMixin,View):
+    def get(self,request,username):
+        user = get_object_or_404(User,username = username)
+        is_followed = False
+        if Following.objects.filter(user = user,follower=request.user).exists():
+            is_followed = True
+        return render(request,"profile.html",{"user":user,"is_followed":is_followed})
+
+
+class FollowView(LoginRequiredMixin,View):
+     def post(self,request):
+         username = request.POST.get("username")
+         redirect_url = request.POST.get("redirect_url")
+         user = get_object_or_404(User, username=username)
+         following,created = Following.objects.get_or_create(user = user,follower = request.user)
+         if not created:
+            following.delete()
+         return redirect(redirect_url)
