@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<h4>Search results for "{{ query }}"</h4>
+
+<div class="posts">
+    {% for post in posts %}
+    <div class="row post-one mt-3">
+        <div class="col-1 post-avatar">
+            <img class="avatar" src="{% static 'images/default.jpg' %}" alt="Profile picture">
+        </div>
+        <div class="col-10 post">
+            <div class="post-user-info">
+                <b class="main">{{ post.user.username }}</b>
+                <span class="grey">@{{ post.user.username }} | {{ post.created|timesince }} ago</span>
+                <div class="content mt-2">
+                    <p class="main">{{ post.body }}</p>
+                    {% if post.media %}
+                    <img src="{{ post.media.url }}" alt="Post media" class="image-tweet">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No posts found for "{{ query }}".</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordChangeDoneView
-from .views import UserLogoutView, SignUpView, UserUpdateView,ProfileView,FollowView
+from .views import UserLogoutView, SignUpView, UserUpdateView,ProfileView,FollowView,users_list
 
 
 
@@ -17,5 +17,7 @@ urlpatterns = [
          name="password_change_done"),
 
     path("@<str:username>/",ProfileView.as_view(),name="profile"),
-    path("follow/",FollowView.as_view(),name="follow")
+    path("follow/",FollowView.as_view(),name="follow"),
+
+    path("users/",users_list, name="users_list"),
 ]

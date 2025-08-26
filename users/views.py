@@ -6,6 +6,8 @@ from .forms import MyUserCreationForm, MyUserChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import User,Following
 from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render
+from django.contrib.auth import get_user_model
 
 class UserLogoutView(View):
     def get(self, request):
@@ -60,3 +62,11 @@ class FollowView(LoginRequiredMixin,View):
          if not created:
             following.delete()
          return redirect(redirect_url)
+
+
+
+User = get_user_model()
+
+def users_list(request):
+    users = User.objects.all()
+    return render(request, "users_list.html", {"users": users})
