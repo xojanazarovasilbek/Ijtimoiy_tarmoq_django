@@ -1,8 +1,13 @@
+body {
+    background-color: #11189; /* qora fon */
+    color: #111111;           /* matnni oqroq qilish */
+}
+
 /* Sidebar */
 .sidebar {
-    background-color: transparent;
+    background-color: 1c1c1c;
     height: 100vh;
-    border-right: 1px solid #e0e0e0;
+    border-right: 1px solid #333;
     padding: 20px;
 }
 
@@ -83,4 +88,21 @@ aside .trend:hover {
 
 a.text-primary {
     text-decoration: none;
+}
+
+/* Profil rasmi */
+.avatar {
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* Postdagi rasm */
+.post-image {
+    width: 100%;
+    height: 400px;   /* balandlikni majburiy tenglaydi */
+    object-fit: cover;
+    border-radius: 15px;
 }
